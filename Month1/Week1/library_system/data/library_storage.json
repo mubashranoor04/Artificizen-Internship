@@ -1,0 +1,23 @@
+{
+    "books": {
+        "76548": {
+            "title": "we",
+            "author": "wereth",
+            "isbn": "76548",
+            "copies_available": 4
+        },
+        "67543": {
+            "title": "we were liars",
+            "author": "E.lockhart",
+            "isbn": "67543",
+            "copies_available": 10
+        }
+    },
+    "members": {
+        "f23bscs014": {
+            "name": "Mubashra Noor",
+            "member_id": "f23bscs014",
+            "borrowed_books": []
+        }
+    }
+}

@@ -1,0 +1,12 @@
+### `requirements.txt`
+Since the project relies cleanly on the Python standard library (`json`, `os`, `sys`, `typing`), it requires no external pip packages. This shows recruiters that you avoid bloated, unnecessary third-party dependencies.
+
+```text
+# -------------------------------------------------------------------------------
+# Core Dependencies Manifesto
+# -------------------------------------------------------------------------------
+# This project is designed purely on top of the Python Standard Library.
+# No external third-party distributions (like pip modules) are required for core execution.
+#
+# This ensures zero dependency overhead and absolute environment portability.
+# Compatible with Python 3.8+
