@@ -76,5 +76,3 @@ Used `try`, `except`, `else`, and `finally` to handle multiple exception types i
 Through today's practice, I gained hands-on experience with advanced Object-Oriented Programming concepts, custom exception handling, file operations, JSON data handling, and commonly used Python features that are widely used in real-world software development.
 
 ---
-
-**Language:** Python 3
