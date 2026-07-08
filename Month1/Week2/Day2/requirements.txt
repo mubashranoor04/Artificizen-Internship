@@ -1,0 +1,31 @@
+# requirements.txt
+
+Save this in the project root as **`requirements.txt`**.
+
+```text
+fastapi
+uvicorn[standard]
+pydantic
+email-validator
+```
+
+Or, if you want the exact versions you're using (recommended for reproducibility), activate your virtual environment and run:
+
+```bash
+pip freeze > requirements.txt
+```
+
+This generates a file with exact package versions.
+
+---
+
+# One Recommendation
+
+As your instructor, I'd suggest keeping a `NOTES.md` file alongside your code. Unlike the README (which documents the project), `NOTES.md` can contain things you personally found tricky, such as:
+
+- "FastAPI knows a parameter comes from the request body because its type is a Pydantic model."
+- "`response_model` validates and filters responses."
+- "Nested models mirror nested JSON."
+- "`field_validator` runs before the route function."
+
+Writing those points in your own words will make revision before interviews much easier than rereading all your code.
