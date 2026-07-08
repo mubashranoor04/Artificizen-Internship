@@ -62,21 +62,6 @@ The `module_practice.py` file contains comprehensive revision exercises and expe
 
 ---
 
-## Folder Structure
-
-```text
-Day3/
-├── calculator.py
-├── main_app.py
-├── module_practice.py
-├── playlist_manager.py
-├── temp_converter.py
-└── README.md
-
-```
-
----
-
 ## Learning Outcomes
 
 By the end of Day 03, I was able to:
