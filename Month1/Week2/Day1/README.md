@@ -26,20 +26,6 @@ This project is part of my **Artificizen Internship** training program. The obje
 * Python 3.13.6
 * FastAPI 0.139.0
 * Uvicorn 0.50.2
-
----
-
-## Project Structure
-
-```
-Week2/
-└── Day1/
-    ├── main.py
-    ├── requirements.txt
-    ├── README.md
-    └── Screenshots/
-```
-
 ---
 
 ## Installation
