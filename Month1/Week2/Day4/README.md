@@ -1,10 +1,3 @@
-The reason it might look messy when you paste it is usually because of how your text editor or markdown viewer handles line breaks. If there aren't enough clean line separations, Markdown merges paragraphs together.
-
-Here is the exact markdown completely optimized with tight structural spacing and precise indentation.
-
-Copy and paste the raw content block below exactly as it is:
-
-```markdown
 # Day 4 - Authentication & Security (FastAPI)
 
 ## Overview
