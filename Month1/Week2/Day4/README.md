@@ -1,26 +1,30 @@
-Day 4 - Authentication & Security (FastAPI)
-Overview
+The reason it might look messy when you paste it is usually because of how your text editor or markdown viewer handles line breaks. If there aren't enough clean line separations, Markdown merges paragraphs together.
+
+Here is the exact markdown completely optimized with tight structural spacing and precise indentation.
+
+Copy and paste the raw content block below exactly as it is:
+
+```markdown
+# Day 4 - Authentication & Security (FastAPI)
+
+## Overview
+
 This project demonstrates how to implement secure user authentication, authorization, and data encryption in a FastAPI application. During this practice, I learned how to securely hash passwords using Passlib, create and verify JSON Web Tokens (JWT) for stateless user sessions, use FastAPI's built-in OAuth2 password flows, protect private API endpoints with dependency injection, and apply Role-Based Access Control (RBAC) to enforce security layers.
 
-Technologies Used
-Python
+## Technologies Used
 
-FastAPI
+* Python
+* FastAPI
+* SQLAlchemy
+* SQLite
+* Pydantic
+* Passlib (with Bcrypt)
+* Python-Jose (for JWTs)
+* Python-Multipart
 
-SQLAlchemy
+## Project Structure
 
-SQLite
-
-Pydantic
-
-Passlib (with Bcrypt)
-
-Python-Jose (for JWTs)
-
-Python-Multipart
-
-Project Structure
-Plaintext
+```text
 fastapi_sqlalchemy_day3/Day4/
 │
 ├── database.py
@@ -32,211 +36,294 @@ fastapi_sqlalchemy_day3/Day4/
 ├── .env
 ├── requirements.txt
 └── README.md
-Files Description
-database.py
-Responsible for setting up the SQLite engine, database session factory (SessionLocal), declarative Base metadata model, and providing the localized cleanup pipeline.
 
-models.py
+```
+
+---
+
+## Files Description
+
+### database.py
+
+Responsible for setting up the SQLite engine, database session factory (`SessionLocal`), declarative `Base` metadata model, and providing the localized cleanup pipeline.
+
+### models.py
+
 Contains SQLAlchemy ORM definitions for tables mapping data directly onto SQLite records. Features a newly added tracking string field for access permissions.
 
-schemas.py
+### schemas.py
+
 Houses Pydantic v2 data models parsing strict input structure definitions, response formatting logic, and automatic database attribute extraction conversions.
 
-auth.py
+### auth.py
+
 Handles the core security layers including password hashing configurations, JWT encryption generation pipelines, token expiration routines, and authentication route guards.
 
-main.py
+### main.py
+
 Contains the central FastAPI app routing configurations, application startups, dependency injections, dynamic operational definitions, and CRUD path endpoints.
 
-Practice Question 1
-Question
-Write a hash_password() and verify_password() utility using passlib. Test them in isolation before wiring into routes.
+---
 
-Files Used
-auth.py
+## Practice Question 1
 
-What was implemented
-Instantiated a CryptContext object leveraging the secure bcrypt engine.
+### Question
 
-Configured robust abstractions parsing plain strings safely into irreversible mathematical hashes.
+Write a `hash_password()` and `verify_password()` utility using passlib. Test them in isolation before wiring into routes.
 
-Implemented corresponding conditional structures validating plain passwords matching database records securely.
+### Files Used
 
-What I Learned
-Never store plaintext passwords under any circumstances.
+* `auth.py`
 
-How the bcrypt algorithm works to generate secure, salted hashes.
+### What was implemented
 
-The separation of cryptographic configurations inside isolated security modules.
+* Instantiated a `CryptContext` object leveraging the secure `bcrypt` engine.
+* Configured robust abstractions parsing plain strings safely into irreversible mathematical hashes.
+* Implemented corresponding conditional structures validating plain passwords matching database records securely.
 
-Practice Question 2
-Question
-Create a POST /auth/register route that accepts username + password, hashes the password, and saves the user.
+### What I Learned
 
-Files Used
-schemas.py
+* Never store plaintext passwords under any circumstances.
+* How the `bcrypt` algorithm works to generate secure, salted hashes.
+* The separation of cryptographic configurations inside isolated security modules.
 
-main.py
+---
 
-What was implemented
-Drafted dedicated validation blocks parsing registration schemas cleanly.
+## Practice Question 2
 
-Set up unique record lookups protecting database integrity against duplicate usernames.
+### Question
 
-Implemented the register path securely, generating dynamic salted hashes before committing records.
+Create a `POST /auth/register` route that accepts username + password, hashes the password, and saves the user.
 
-Request
-JSON
+### Files Used
+
+* `schemas.py`
+* `main.py`
+
+### What was implemented
+
+* Drafted dedicated validation blocks parsing registration schemas cleanly.
+* Set up unique record lookups protecting database integrity against duplicate usernames.
+* Implemented the register path securely, generating dynamic salted hashes before committing records.
+
+### Request
+
+```json
 POST /auth/register
 {
     "username": "mubashra",
     "password": "supersecurepassword123"
 }
-Response
-JSON
+
+```
+
+### Response
+
+```json
 {
     "id": 1,
     "username": "mubashra",
     "role": "user"
 }
-What I Learned
-Intercepting request schemas to process underlying fields recursively.
 
-Verifying unique application state parameters prior to execution pipelines.
+```
 
-Practice Question 3
-Question
-Create a POST /auth/token route using OAuth2PasswordRequestForm that verifies credentials and returns a signed JWT.
+### What I Learned
 
-Files Used
-auth.py
+* Intercepting request schemas to process underlying fields recursively.
+* Verifying unique application state parameters prior to execution pipelines.
 
-main.py
+---
 
-What was implemented
-Replaced JSON body schemas with standard OAuth2PasswordRequestForm parsing form-data structures.
+## Practice Question 3
 
-Validated credentials securely by calling isolated password verifiers against query states.
+### Question
 
-Generated signed tokens containing custom dictionary data payloads.
+Create a `POST /auth/token` route using `OAuth2PasswordRequestForm` that verifies credentials and returns a signed JWT.
 
-Request
-Plaintext
+### Files Used
+
+* `auth.py`
+* `main.py`
+
+### What was implemented
+
+* Replaced JSON body schemas with standard `OAuth2PasswordRequestForm` parsing form-data structures.
+* Validated credentials securely by calling isolated password verifiers against query states.
+* Generated signed tokens containing custom dictionary data payloads.
+
+### Request
+
+```text
 POST /auth/token
 Body (form-data):
 username: mubashra
 password: supersecurepassword123
-Response
-JSON
+
+```
+
+### Response
+
+```json
 {
     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "token_type": "bearer"
 }
-What I Learned
-Why standard form-data elements are globally uniform requirements for standard browser credential pipelines.
 
-Installing python-multipart to parse form uploads inside modern asynchronous structures.
+```
 
-Attaching dictionary scopes (sub, role) within structural cryptograms.
+### What I Learned
 
-Practice Question 4
-Question
-Write a get_current_user dependency that reads the Authorization: Bearer <token> header, decodes the JWT, and returns the user or raises 401.
+* Why standard form-data elements are globally uniform requirements for standard browser credential pipelines.
+* Installing `python-multipart` to parse form uploads inside modern asynchronous structures.
+* Attaching dictionary scopes (`sub`, `role`) within structural cryptograms.
 
-Files Used
-auth.py
+---
 
-What was implemented
-Leveraged OAuth2PasswordBearer variables parsing bearer strings uniformly from request metadata.
+## Practice Question 4
 
-Constructed safe payload execution blocks using jwt.decode configurations.
+### Question
 
-Created custom exceptions validating claims and raising strict HTTP status warnings on malformed inputs.
+Write a `get_current_user` dependency that reads the `Authorization: Bearer <token>` header, decodes the JWT, and returns the user or raises 401.
 
-What I Learned
-Decoding encoded structures using matching algorithm strings.
+### Files Used
 
-Validating standard token signatures dynamically on every backend transaction safely.
+* `auth.py`
 
-Practice Question 5
-Question
-Protect GET /users/me with the get_current_user dependency so only authenticated users can access it.
+### What was implemented
 
-Files Used
-main.py
+* Leveraged `OAuth2PasswordBearer` variables parsing bearer strings uniformly from request metadata.
+* Constructed safe payload execution blocks using `jwt.decode` configurations.
+* Created custom exceptions validating claims and raising strict HTTP status warnings on malformed inputs.
 
-What was implemented
-Attached the get_current_user functional dependants onto targeted profiles routes.
+### What I Learned
 
-Returned the user record returned by the verification pipeline.
+* Decoding encoded structures using matching algorithm strings.
+* Validating standard token signatures dynamically on every backend transaction safely.
 
-Request
-Plaintext
+---
+
+## Practice Question 5
+
+### Question
+
+Protect `GET /users/me` with the `get_current_user` dependency so only authenticated users can access it.
+
+### Files Used
+
+* `main.py`
+
+### What was implemented
+
+* Attached the `get_current_user` functional dependants onto targeted profiles routes.
+* Returned the user record returned by the verification pipeline.
+
+### Request
+
+```text
 GET /users/me
 Headers: Authorization: Bearer <token>
-Response
-JSON
+
+```
+
+### Response
+
+```json
 {
     "id": 1,
     "username": "mubashra",
     "role": "user"
 }
-Invalid Request (No/Expired Token)
-JSON
+
+```
+
+### Invalid Request (No/Expired Token)
+
+```json
 Status Code: 401 Unauthorized
 {
     "detail": "Invalid token"
 }
-What I Learned
-Restricting open pathways from anonymous exposure using dependency injections.
 
-Intercepting dynamic request parameters directly through functional wrapper constraints.
+```
 
-Practice Question 6
-Question
-Add a role field to your user model. Write a require_admin dependency that raises 403 if the current user is not an admin, and apply it to a DELETE /users/{id} route.
+### What I Learned
 
-Files Used
-models.py
+* Restricting open pathways from anonymous exposure using dependency injections.
+* Intercepting dynamic request parameters directly through functional wrapper constraints.
 
-auth.py
+---
 
-main.py
+## Practice Question 6
 
-What was implemented
-Extended user database tables with an explicit access role tracking column tracking authorization levels.
+### Question
 
-Formulated chained dependency flows validating parameters passed downwards into administrative functions.
+Add a `role` field to your user model. Write a `require_admin` dependency that raises 403 if the current user is not an admin, and apply it to a `DELETE /users/{id}` route.
 
-Attached custom error layers raising forbidden responses to unprivileged requests.
+### Files Used
 
-Request (Authenticated Admin)
-Plaintext
+* `models.py`
+* `auth.py`
+* `main.py`
+
+### What was implemented
+
+* Extended user database tables with an explicit access `role` tracking column tracking authorization levels.
+* Formulated chained dependency flows validating parameters passed downwards into administrative functions.
+* Attached custom error layers raising forbidden responses to unprivileged requests.
+
+### Request (Authenticated Admin)
+
+```text
 DELETE /users/2
 Headers: Authorization: Bearer <admin_token>
-Response
-Plaintext
+
+```
+
+### Response
+
+```text
 204 No Content
-Invalid Request (Standard User Account)
-JSON
+
+```
+
+### Invalid Request (Standard User Account)
+
+```json
 Status Code: 403 Forbidden
 {
     "detail": "You do not have permission to perform this action"
 }
-What I Learned
-The critical architectural differences between Authentication (Who you are) and Authorization (What you can do).
 
-Nesting functional dependency trees cleanly within FastAPI.
+```
 
-Important Security Concepts Learned
-Password Hashing
+### What I Learned
+
+* The critical architectural differences between Authentication (Who you are) and Authorization (What you can do).
+* Nesting functional dependency trees cleanly within FastAPI.
+
+---
+
+## Important Security Concepts Learned
+
+### Password Hashing
+
 Storing raw access strings inside any accessible state compromises database integrity entirely. Standard algorithms apply secure calculations making recovery impossible.
 
-Stateless JWT Frameworks
+### Stateless JWT Frameworks
+
 Instead of recording long-lived active login state metrics on host engines across varying systems, backends can issue tamper-proof cryptograms validating authentication claims autonomously.
 
-Token Expiration
-Using explicit .env configurations to append timestamped limits (exp) onto payload structures protects state changes from token-sniffing exploits.
+### Token Expiration
 
-Summary
+Using explicit `.env` configurations to append timestamped limits (`exp`) onto payload structures protects state changes from token-sniffing exploits.
+
+---
+
+## Summary
+
 By completing this practice day, I successfully learned how to structure authentication middleware components securely, isolate secret global configurations inside explicit environments, generate validated tokens, inspect dynamic scopes inside endpoints, and implement robust role-based access control (RBAC).
+
+```
+
+```
