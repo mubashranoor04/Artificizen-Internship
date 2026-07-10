@@ -1,20 +1,26 @@
-# Day 4 - Authentication & Security (FastAPI)
-
-## Overview
+Day 4 - Authentication & Security (FastAPI)
+Overview
 This project demonstrates how to implement secure user authentication, authorization, and data encryption in a FastAPI application. During this practice, I learned how to securely hash passwords using Passlib, create and verify JSON Web Tokens (JWT) for stateless user sessions, use FastAPI's built-in OAuth2 password flows, protect private API endpoints with dependency injection, and apply Role-Based Access Control (RBAC) to enforce security layers.
 
-## Technologies Used
-* Python
-* FastAPI
-* SQLAlchemy
-* SQLite
-* Pydantic
-* Passlib (with Bcrypt)
-* Python-Jose (for JWTs)
-* Python-Multipart
+Technologies Used
+Python
 
-## Project Structure
-```text
+FastAPI
+
+SQLAlchemy
+
+SQLite
+
+Pydantic
+
+Passlib (with Bcrypt)
+
+Python-Jose (for JWTs)
+
+Python-Multipart
+
+Project Structure
+Plaintext
 fastapi_sqlalchemy_day3/Day4/
 │
 ├── database.py
