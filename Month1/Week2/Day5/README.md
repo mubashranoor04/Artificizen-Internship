@@ -1,71 +1,127 @@
-Day 5 – Routers, Middleware, Error Handling & Testing (FastAPI)
-Overview
+# Day 5 – Routers, Middleware, Error Handling & Testing (FastAPI)
 
-This project demonstrates how to organize a FastAPI application into modular routers, configure middleware for request processing, enable secure Cross-Origin Resource Sharing (CORS), implement centralized exception handling, execute background tasks asynchronously, manage application startup and shutdown events using lifespan handlers, and write automated API tests using Pytest and TestClient. During this practice, I learned how to structure production-ready FastAPI applications by separating concerns across multiple files while improving maintainability, debugging, and overall application reliability.
+## Overview
 
-Technologies Used
-Python
-FastAPI
-Pytest
-HTTPX
-FastAPI TestClient
-CORSMiddleware
-JSONResponse
-BackgroundTasks
-Project Structure
-fastapi_sqlalchemy_day3/Day5/
+This project demonstrates how to organize a FastAPI application into modular components using routers, middleware, exception handlers, background tasks, lifespan events, and automated testing. The goal of this practice was to learn how production-level FastAPI applications are structured, making the codebase easier to maintain, extend, and test.
+
+By completing this practice, I learned how to:
+
+- Split a FastAPI application into multiple routers.
+- Register routers using `include_router()`.
+- Configure middleware for request logging.
+- Enable Cross-Origin Resource Sharing (CORS).
+- Create global exception handlers.
+- Implement custom exception classes.
+- Execute background tasks without blocking responses.
+- Manage application startup and shutdown using lifespan events.
+- Write automated API tests using Pytest and TestClient.
+
+---
+
+# Technologies Used
+
+- Python
+- FastAPI
+- Uvicorn
+- Pytest
+- HTTPX
+- FastAPI TestClient
+- CORSMiddleware
+- BackgroundTasks
+
+---
+
+# Project Structure
+
+```text
+Day5/
 │
 ├── main.py
 ├── database.py
 ├── models.py
 ├── schemas.py
 ├── dependencies.py
+├── requirements.txt
+├── pytest.ini
+├── README.md
 │
 ├── routers/
-│   ├── users.py
-│   └── auth.py
+│   ├── auth.py
+│   └── users.py
 │
-├── tests/
-│   └── test_main.py
-│
-├── pytest.ini
-└── README.md
-Files Description
-main.py
+└── tests/
+    └── test_main.py
+```
 
-Acts as the central FastAPI application. It initializes the application, registers routers, configures middleware, enables CORS, defines lifespan events, and implements global exception handlers.
+---
 
-routers/users.py
+# Files Description
 
-Contains all user-related endpoints including retrieving users, creating users, deleting users, duplicate email validation, and background task execution for welcome emails.
+## main.py
 
-routers/auth.py
+Acts as the application's entry point. It initializes the FastAPI application, registers routers, configures middleware, enables CORS, defines lifespan events, and implements global exception handling.
 
-Contains authentication-related routes including login, registration, and protected endpoints demonstrating dependency-based authorization.
+---
 
-tests/test_main.py
+## routers/users.py
 
-Contains automated API tests using FastAPI's TestClient and Pytest to verify endpoint behavior, status codes, authentication, and duplicate validation.
+Contains all user-related routes, including creating users, retrieving users, validating duplicate email addresses, and executing background tasks.
 
-pytest.ini
+---
 
-Configures Pytest to correctly locate the project root and execute all tests inside the tests directory.
+## routers/auth.py
 
-Practice Question 1
-Question
+Contains authentication routes such as login and protected endpoints used to demonstrate authorization.
 
-Split your app into at least two routers: routers/users.py and routers/auth.py. Register both in main.py with appropriate prefixes and tags.
+---
 
-Files Used
-main.py
-routers/users.py
-routers/auth.py
-What was implemented
-Created separate APIRouter instances for user and authentication endpoints.
-Registered both routers using include_router().
-Assigned URL prefixes to logically group related endpoints.
-Added descriptive tags for automatic grouping inside Swagger UI.
-Example
+## tests/test_main.py
+
+Contains automated API tests written using Pytest and FastAPI's TestClient.
+
+---
+
+## pytest.ini
+
+Configures Pytest to correctly discover the project files and test directory.
+
+---
+
+# Practice Question 1
+
+## Question
+
+Split your application into at least two routers:
+
+- `routers/users.py`
+- `routers/auth.py`
+
+Register both routers in `main.py` using appropriate prefixes and tags.
+
+---
+
+## Files Used
+
+- `main.py`
+- `routers/users.py`
+- `routers/auth.py`
+
+---
+
+## What Was Implemented
+
+- Created separate `APIRouter` instances.
+- Moved user routes into `users.py`.
+- Moved authentication routes into `auth.py`.
+- Registered routers using `include_router()`.
+- Added URL prefixes.
+- Added Swagger documentation tags.
+
+---
+
+## Example
+
+```python
 app.include_router(
     users_router,
     prefix="/users",
@@ -77,43 +133,91 @@ app.include_router(
     prefix="/auth",
     tags=["Authentication"]
 )
-What I Learned
-Separating application logic into modular router files.
-Organizing endpoints into meaningful URL prefixes.
-Using tags to improve Swagger documentation readability.
-Keeping main.py clean and maintainable.
-Practice Question 2
-Question
+```
 
-Add a middleware that logs every request method, path, and response status code to the console.
+---
 
-Files Used
-main.py
-What was implemented
-Created a custom HTTP middleware.
-Logged every incoming request method.
-Logged requested URL paths.
-Logged outgoing response status codes before returning responses.
-Example Output
-Method : GET
-Path   : /users
-Status : 200
-What I Learned
-Middleware executes before and after every request.
-Logging requests greatly simplifies debugging.
-Middleware provides a centralized location for cross-cutting concerns.
-Practice Question 3
-Question
+## What I Learned
 
-Add CORSMiddleware configured to allow requests from http://localhost:3000 only.
+- How to organize large applications into multiple files.
+- Why separating routes improves maintainability.
+- How prefixes automatically group related endpoints.
+- How tags organize Swagger documentation.
 
-Files Used
-main.py
-What was implemented
-Added FastAPI's CORSMiddleware.
-Allowed requests exclusively from a React frontend running on localhost.
-Enabled credentials, headers, and all HTTP methods.
-Example
+---
+
+# Practice Question 2
+
+## Question
+
+Add middleware that logs every request method, request path, and response status code.
+
+---
+
+## Files Used
+
+- `main.py`
+
+---
+
+## What Was Implemented
+
+- Created a custom HTTP middleware.
+- Logged request methods.
+- Logged request paths.
+- Logged response status codes.
+
+---
+
+## Example Console Output
+
+```text
+Method: GET
+Path: /users
+Status: 200
+```
+
+---
+
+## What I Learned
+
+- Middleware executes before and after every request.
+- Middleware is useful for logging, authentication, timing, and request modification.
+- Logging simplifies debugging and monitoring.
+
+---
+
+# Practice Question 3
+
+## Question
+
+Configure `CORSMiddleware` to allow requests only from:
+
+```
+http://localhost:3000
+```
+
+---
+
+## Files Used
+
+- `main.py`
+
+---
+
+## What Was Implemented
+
+- Added FastAPI's `CORSMiddleware`.
+- Allowed requests from a React frontend.
+- Enabled credentials.
+- Allowed all HTTP methods.
+- Allowed all request headers.
+
+---
+
+## Example
+
+```python
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
@@ -121,57 +225,109 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-What I Learned
-Browsers restrict requests between different origins.
-CORS safely enables communication between frontend and backend applications.
-Restricting allowed origins improves application security.
-Practice Question 4
-Question
+```
 
-Write a global exception handler for HTTPException that always returns JSON in the shape
+---
 
+## What I Learned
+
+- Browsers block requests from different origins by default.
+- CORS allows trusted frontend applications to communicate with the backend.
+- Restricting allowed origins improves security.
+
+---
+
+# Practice Question 4
+
+## Question
+
+Create a global exception handler that returns errors in the following format:
+
+```json
 {
     "error": true,
     "detail": "...",
     "status": 404
 }
+```
 
-instead of FastAPI's default response.
+---
 
-Files Used
-main.py
-What was implemented
-Registered a global HTTPException handler.
-Returned consistent JSON structures for all application errors.
-Simplified frontend error handling through standardized responses.
-Example
+## Files Used
+
+- `main.py`
+
+---
+
+## What Was Implemented
+
+- Registered a global `HTTPException` handler.
+- Returned consistent JSON responses for every API error.
+- Replaced FastAPI's default error response.
+
+---
+
+## Example Response
+
+```json
 {
     "error": true,
     "detail": "User not found",
     "status": 404
 }
-What I Learned
-Global exception handlers eliminate repetitive error responses.
-Consistent API responses improve frontend integration.
-FastAPI allows overriding default exception formatting.
-Practice Question 5
-Question
+```
 
-Add a background task to the POST /users route that "sends a welcome email" (prints a message) without blocking the response.
+---
 
-Files Used
-routers/users.py
-What was implemented
-Created a reusable background function.
-Used BackgroundTasks to execute the task asynchronously.
-Returned API responses immediately while executing email logic afterward.
-Request
+## What I Learned
+
+- Global exception handlers eliminate repeated error-handling code.
+- Consistent error responses simplify frontend development.
+- FastAPI allows custom formatting for exceptions.
+
+---
+
+# Practice Question 5
+
+## Question
+
+Add a background task to the `POST /users` route that sends a welcome email (prints a message) without blocking the response.
+
+---
+
+## Files Used
+
+- `routers/users.py`
+
+---
+
+## What Was Implemented
+
+- Created a background function.
+- Used `BackgroundTasks`.
+- Returned the API response immediately.
+- Executed the email task after the response.
+
+---
+
+## Request
+
+```http
 POST /users
+```
+
+```json
 {
     "name": "Mubashra",
     "email": "mubashranoor04@gmail.com"
 }
-Response
+```
+
+---
+
+## Response
+
+```json
 {
     "message": "User created successfully",
     "user": {
@@ -179,29 +335,58 @@ Response
         "email": "mubashranoor04@gmail.com"
     }
 }
-Console Output
+```
+
+---
+
+## Console Output
+
+```text
 Welcome email sent to mubashranoor04@gmail.com
-What I Learned
-BackgroundTasks execute after the response has been sent.
-Long-running operations should not block client responses.
-Background processing improves application responsiveness.
-Practice Question 6
-Question
+```
 
-Write at least three Pytest tests using TestClient:
+---
 
-Successful user creation
-Duplicate email conflict
-Protected route returning 401 without a token
-Files Used
-tests/test_main.py
-What was implemented
-Created automated endpoint tests using TestClient.
-Verified successful user creation.
-Tested duplicate email conflict responses.
-Verified unauthorized access to protected routes.
-Validated login and user retrieval endpoints.
-Example Test
+## What I Learned
+
+- Background tasks run after the response is returned.
+- Long-running operations should not block API responses.
+- Background processing improves application performance.
+
+---
+
+# Practice Question 6
+
+## Question
+
+Write automated tests using Pytest and TestClient for:
+
+- Successful user creation
+- Duplicate email conflict
+- Unauthorized protected route
+
+---
+
+## Files Used
+
+- `tests/test_main.py`
+
+---
+
+## What Was Implemented
+
+- Created API tests using FastAPI's `TestClient`.
+- Verified successful user creation.
+- Tested duplicate email validation.
+- Tested unauthorized access.
+- Verified login endpoint.
+- Verified user retrieval endpoint.
+
+---
+
+## Example Test
+
+```python
 def test_create_user():
 
     response = client.post(
@@ -213,46 +398,100 @@ def test_create_user():
     )
 
     assert response.status_code == 201
-Example Command
+```
+
+---
+
+## Running the Tests
+
+```bash
 pytest -v
-What I Learned
-Automated testing ensures endpoints behave consistently.
-TestClient simulates HTTP requests without starting a live server.
-Assertions validate both status codes and response bodies.
-Additional Concepts Learned
-Custom Exception Classes
+```
 
-Instead of repeatedly raising generic HTTP exceptions, custom exception classes allow applications to represent domain-specific errors while centralizing their handling.
+---
 
-Lifespan Events
+## What I Learned
 
-FastAPI's lifespan handler executes startup and shutdown logic for initializing or cleaning resources such as database pools, cache systems, or external services.
+- Automated tests verify application behavior.
+- `TestClient` simulates HTTP requests without starting the server.
+- Assertions validate both status codes and response content.
+
+---
+
+# Additional Concepts Learned
+
+## Custom Exception Classes
+
+Custom exception classes allow developers to represent application-specific errors while centralizing error handling. This improves readability and keeps route logic clean.
+
+---
+
+## Lifespan Events
+
+Lifespan events manage application startup and shutdown.
 
 Example:
 
+```python
+from contextlib import asynccontextmanager
+
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app):
+
     print("Application Started")
+
     yield
+
     print("Application Stopped")
-Request Lifecycle
+```
 
-Every request follows the sequence:
+Typical startup tasks include:
 
+- Database initialization
+- Cache creation
+- Loading machine learning models
+- Opening external connections
+
+Typical shutdown tasks include:
+
+- Closing database connections
+- Clearing cache
+- Releasing external resources
+
+---
+
+## Request Lifecycle
+
+Every request follows this sequence:
+
+```text
 Client
-      ↓
+   │
+   ▼
 CORS Middleware
-      ↓
+   │
+   ▼
 Logging Middleware
-      ↓
+   │
+   ▼
 Router
-      ↓
-Exception Handler (if required)
-      ↓
+   │
+   ▼
+Background Tasks
+   │
+   ▼
+Exception Handler (if needed)
+   │
+   ▼
 Response
+```
 
-Understanding this lifecycle helped clarify how middleware and exception handlers interact before responses are returned to clients.
+Understanding this lifecycle helped clarify how middleware, routers, background tasks, and exception handlers work together inside FastAPI.
 
-Summary
+---
 
-By completing Day 5, I learned how to organize FastAPI applications into modular router files, configure middleware for logging and request processing, enable secure CORS communication between frontend and backend applications, implement centralized exception handling with consistent JSON responses, execute asynchronous background tasks, manage application startup and shutdown using lifespan events, and write automated API tests using Pytest and TestClient. These concepts collectively introduced production-level application organization and testing practices that improve scalability, maintainability, and reliability in FastAPI projects.
+# Summary
+
+By completing Day 5, I learned how to structure FastAPI applications using modular routers, configure middleware for request processing, enable CORS for frontend integration, create centralized exception handlers, execute asynchronous background tasks, manage application startup and shutdown through lifespan events, and write automated tests using Pytest and TestClient.
+
+These concepts represent important production-level FastAPI practices that improve application organization, scalability, maintainability, and reliability.
