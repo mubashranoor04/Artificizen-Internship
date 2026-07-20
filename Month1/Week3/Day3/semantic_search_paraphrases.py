@@ -1,0 +1,60 @@
+#5.Embed 50 random sentences, then query with a sentence that is semantically close but uses completely different words. Verify that semantic search still finds the right match.
+documents = [
+    "A physician completed a successful heart surgery for an elderly patient.",
+    "The bakery prepares fresh sourdough bread every morning before sunrise.",
+    "A software engineer optimized the application to reduce loading time.",
+    "Heavy snowfall closed several mountain roads during the weekend.",
+    "The university introduced new scholarships for engineering students.",
+    "A professional photographer captured the northern lights over Iceland.",
+    "The local farmers harvested wheat before the rainy season arrived.",
+    "Astronomers detected a distant planet orbiting a nearby star.",
+    "The museum displayed ancient pottery discovered during an excavation.",
+    "A chef experimented with herbs to create a unique pasta sauce.",
+    "The robotics team built an autonomous drone for disaster response.",
+    "Electric buses help reduce air pollution in crowded cities.",
+    "The marathon attracted runners from more than thirty countries.",
+    "Researchers developed a biodegradable material to replace plastic packaging.",
+    "The firefighter rescued a family trapped inside a burning building.",
+    "Children planted dozens of trees during the environmental awareness campaign.",
+    "A pianist practiced classical compositions for the international competition.",
+    "The cybersecurity expert detected suspicious login attempts overnight.",
+    "A veterinarian vaccinated rescued puppies at the local shelter.",
+    "The scientist analyzed water samples collected from the glacier.",
+    "A novelist spent three years writing a historical fiction book.",
+    "The mechanic repaired the vehicle's braking system efficiently.",
+    "Engineers inspected the suspension bridge after the earthquake.",
+    "A travel blogger explored hidden villages in the Himalayan region.",
+    "The dentist recommended regular flossing to prevent gum disease.",
+    "A marine biologist tracked whale migration across the Pacific Ocean.",
+    "The startup launched a mobile app for personal budgeting.",
+    "An architect designed an energy-efficient apartment complex.",
+    "The librarian digitized thousands of historical newspapers.",
+    "The pilot safely landed the aircraft despite severe turbulence.",
+    "The data analyst created dashboards to monitor company performance.",
+    "A florist arranged colorful bouquets for the wedding ceremony.",
+    "The carpenter handcrafted wooden furniture using reclaimed oak.",
+    "The orchestra performed a symphony composed in the nineteenth century.",
+    "Scientists observed unusual volcanic activity near the island.",
+    "A geologist collected rock samples from the desert plateau.",
+    "The fashion designer introduced a sustainable clothing collection.",
+    "The pharmacist explained how to take the prescribed medication safely.",
+    "The coach organized daily fitness sessions for the athletes.",
+    "A wildlife photographer patiently waited to capture a snow leopard.",
+    "The teacher encouraged students to solve problems creatively.",
+    "A programmer developed a chatbot using natural language processing.",
+    "The gardener grew organic vegetables without chemical pesticides.",
+    "The economist studied inflation trends across developing countries.",
+    "The rescue team located missing hikers using thermal imaging drones.",
+    "The jeweler restored a damaged antique necklace.",
+    "A chemist synthesized a new compound for laboratory testing.",
+    "The renewable energy project installed hundreds of solar panels.",
+    "The singer recorded an acoustic version of her latest song.",
+    "A civil engineer supervised the construction of a new highway."
+]
+
+query = "A doctor helped someone who was sick."
+
+results = semantic_search(query, documents)
+
+for doc, score in results:
+    print(score, doc)
