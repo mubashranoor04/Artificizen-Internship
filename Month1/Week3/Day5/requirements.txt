@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+groq
+langchain
+langchain-community
+faiss-cpu
+sentence-transformers
+ragas
+datasets
+pandas
+python-dotenv
