@@ -1,0 +1,19 @@
+# Virtual Environment
+.venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Pytest
+.pytest_cache/
+
+# Environment Variables
+.env
+
+# Qdrant Database
+vectorstore/
+
+# OS files
+.DS_Store
+Thumbs.db
