@@ -327,7 +327,7 @@ This progression provided the technical foundation for working with backend syst
 
 # Repository Scope
 
-This repository is specifically intended to document the **structured training phase and personal implementations** completed during the initial weeks of the internship.
+This repository is specifically intended to document the **structured initial training phase and personal implementations** completed during the initial weeks of the internship.
 
 It does **not** represent the complete body of work completed during my internship.
 
